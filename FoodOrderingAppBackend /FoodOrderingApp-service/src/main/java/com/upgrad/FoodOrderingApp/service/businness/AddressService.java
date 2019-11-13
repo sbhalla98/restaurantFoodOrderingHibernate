@@ -33,10 +33,9 @@ public class AddressService {
         if (customerAuthTokenEntity.getLogoutAt() != null) {
             throw new AuthorizationFailedException("ATHR-002", "Customer is logged out. Log in again to access this endpoint");
         }
-//      if(customerAuthTokenEntity.getExpiresAt() < ZonedDateTime.now()){
-//        throw new AuthorizationFailedException("ATHR-003", "Your session is expired. Log in again to access this endpoint");
-//      }
-
+        if(customerAuthTokenEntity.getExpiresAt().isBefore(ZonedDateTime.now())){
+        throw new AuthorizationFailedException("ATHR-003", "Your session is expired. Log in again to access this endpoint");
+        }
         return customerAuthTokenEntity.getCustomer();
     }
 

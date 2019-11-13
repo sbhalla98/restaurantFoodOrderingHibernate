@@ -99,9 +99,9 @@ public class CustomerService {
         if (customerAuthTokenEntity.getLogoutAt() != null) {
             throw new AuthorizationFailedException("ATHR-002", "Customer is logged out. Log in again to access this endpoint");
         }
-//      if(customerAuthTokenEntity.getExpiresAt() < ZonedDateTime.now()){
-//        throw new AuthorizationFailedException("ATHR-003", "Your session is expired. Log in again to access this endpoint");
-//      }
+        if(customerAuthTokenEntity.getExpiresAt().isBefore(ZonedDateTime.now())){
+        throw new AuthorizationFailedException("ATHR-003", "Your session is expired. Log in again to access this endpoint");
+        }
 
         customerAuthTokenEntity.setLogoutAt(ZonedDateTime.now());
         customerDao.updateAuth(customerAuthTokenEntity);
@@ -122,9 +122,9 @@ public class CustomerService {
         if (customerAuthTokenEntity.getLogoutAt() != null) {
             throw new AuthorizationFailedException("ATHR-002", "Customer is logged out. Log in again to access this endpoint");
         }
-//      if(customerAuthTokenEntity.getExpiresAt() < ZonedDateTime.now()){
-//        throw new AuthorizationFailedException("ATHR-003", "Your session is expired. Log in again to access this endpoint");
-//      }
+        if(customerAuthTokenEntity.getExpiresAt().isBefore(ZonedDateTime.now())){
+        throw new AuthorizationFailedException("ATHR-003", "Your session is expired. Log in again to access this endpoint");
+        }
 
         if(newPassword.length()<8 || !newPassword.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}")){
             throw new UpdateCustomerException("UCR-001","Weak password!");

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Table(name = "restaurant",schema = "public")
 @NamedQueries(
         {
-                @NamedQuery(name = "getRestaurantList", query = "select u from RestaurantEntity u where lower(u.restaurantName) LIKE :name"),
+                @NamedQuery(name = "getRestaurantList", query = "select u from RestaurantEntity u where lower(u.restaurantName) LIKE :name order by lower(u.restaurantName)"),
                 @NamedQuery(name = "getRestaurant", query = "select u from RestaurantEntity u where u.uuid = :id")
         }
 )

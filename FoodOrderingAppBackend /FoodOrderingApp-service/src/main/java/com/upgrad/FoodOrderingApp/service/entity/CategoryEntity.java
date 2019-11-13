@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @NamedQueries(
         {
                 @NamedQuery(name = "categorybyuuid", query = "select u from CategoryEntity u where u.uuid = :uuid"),
-                @NamedQuery(name = "listofcategories", query = "select u from CategoryEntity u")
+                @NamedQuery(name = "listofcategories", query = "select u from CategoryEntity u order by u.categoryName")
         }
 )
 public class CategoryEntity {
